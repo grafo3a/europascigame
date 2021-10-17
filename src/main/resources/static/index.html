@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>EuropasciGame</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled.
+Please enable Javascript and reload this page!</h2></noscript>
+
+<div id="main-content" class="container">
+
+
+<br/>
+<fieldset>
+	<img title="Image created by Enzoklop, license: CC BY-SA 3.0."
+	src="rock-paper-scissors-game.png" alt="image-rock-paper-scissors-by-Enzoklop"
+	style="width:180px;height:160px;float:right" />
+	
+	<div id="labelWelcome">Welcome to EuropasciGame!</div>
+	<div id="labelYouAre" style="display:inline-block">You are:</div>
+	<div id="labelUserName" style="display:inline-block;font-weight:bold">Visitor</div>
+	
+	<br/>
+	<form id="newPlayerForm" class="form-inline">
+			<input type="text" id="newPlayerNameInput" class="form-control"
+                    style="width:140px"	placeholder="username">
+			<button id="userNameButton" class="btn btn-default" type="submit">Sign in</button>
+	</form>
+	
+	<br/>
+	<br/>
+	<div id="labelPlayersList" style="display:inline-block; width:540px"></div>
+	<br/>
+	
+	<div id="labelResultsError" style="color:red"></div>
+</fieldset>
+
+
+<!-- Choix d'une langue -->
+<fieldset style="text-align:center;width:360px;float:right" >
+	<form>
+		<div class="form-group">
+		Language:
+		<div id="labelLanguage" style="display:inline-block;margin-right:10px">EN</div>
+		<button id="btnPL" class="btn btn-default btn-sm" style="color:red;border: 1px solid red">Polski</button>
+		<button id="btnEN" class="btn btn-default btn-sm" style="color:blue;border: 1px solid red">English</button>
+		<button id="btnFR" class="btn btn-default btn-sm" style="color:blue;border: 1px solid blue">Français</button>
+     </div>
+	</form>
+</fieldset>
+
+
+<br/>
+<label for="conversation" id="labelObserve">Observe here</label>
+
+<div class="scroller">
+<table id="conversation" class="table table-striped">
+	<tbody id="games"></tbody>
+</table>
+
+
+</div>
+<br/>
+<fieldset style="text-align:center;" >
+	<form class="form-inline" style="margin-left:20px">
+		<div class="form-group">
+			<label id="labelChat" for="opinion">Chat here</label>
+			<input type="text" id="opinion" class="form-control"
+				style="width:400px"	placeholder="Say something ..." />
+		</div>
+		<button id="btnSend" class="btn btn-default" type="submit">Send</button>
+	</form>
+</fieldset>
+
+
+<br/>
+<fieldset style="text-align:center;width:300px;float:left" >
+<form>
+	<label id="labelControl" for="stopGame">Start here (1)</label>
+	<button id="startGame" class="btn btn-default" type="submit">Start</button>
+</form>
+</fieldset>
+
+
+<fieldset style="text-align:center;width:400px;float:right" >
+	<form>
+		<div class="form-group">
+		<button id="playRock" class="btn btn-light" style="color:red;font-weight:bold;border: 1px solid grey">Rock</button>
+        <button id="playPaper" class="btn btn-light" style="color:blue;font-weight:bold;border: 1px solid grey">Paper</button>
+        <button id="playScissors" class="btn btn-light" style="color:green;font-weight:bold;border: 1px solid grey">Scissors</button>
+        <label id="labelPlay" for="playRock">Play here (2)</label>
+		</div>
+	</form>
+</fieldset>
+
+
+<br/>
+</div>
+</body>
+</html>
