@@ -12,7 +12,7 @@ import net.apasajb.europascigame.services.GameService;
 
 
 /** 
- * Receives websocket messages, processes them and sends a result back to users (players).
+ * Receives WebSocket messages, processes them and sends a response back to players (JavaScript).
  * @author ApasaJB
  */
 

@@ -10,6 +10,11 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * Represents a player in database.
+ * @author ApasaJB
+ */
+
 @Entity
 @Table(name="players")
 @Component

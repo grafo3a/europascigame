@@ -1,6 +1,11 @@
 package net.apasajb.europascigame.pojo;
 
 
+/**
+ * Represents a response object to be sent back to JavaScript.
+ * @author ApasaJB
+ */
+
 public class GameResponse {
 
 	private String serverMessage;

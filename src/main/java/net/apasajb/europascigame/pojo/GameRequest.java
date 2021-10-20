@@ -1,6 +1,11 @@
 package net.apasajb.europascigame.pojo;
 
 
+/**
+ * Represents a request object coming from JavaScript.
+ * @author ApasaJB
+ */
+
 public class GameRequest {
 
 	private String playerMessage;

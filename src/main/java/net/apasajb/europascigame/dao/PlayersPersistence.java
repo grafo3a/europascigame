@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 import net.apasajb.europascigame.services.GameService;
 
 
+/**
+ * Offers methods for updating players & points in database.
+ * @author ApasaJB
+ */
+
 @Component
 public class PlayersPersistence {
 	
@@ -76,7 +81,7 @@ public class PlayersPersistence {
 	}
 	
 	
-//=================== GETTERS & SETTERS =================//
+	//=================== GETTERS & SETTERS =================//
 	
 	public String getPersistenceError() {
 		return persistenceError;
@@ -86,6 +91,5 @@ public class PlayersPersistence {
 	public void setPersistenceError(String persistenceError) {
 		this.persistenceError = persistenceError;
 	}
-//==========================================================//
-
+	//==========================================================//
 }
