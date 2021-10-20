@@ -3,7 +3,6 @@ package net.apasajb.europascigame.dao;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import net.apasajb.europascigame.services.GameService;
 
 
