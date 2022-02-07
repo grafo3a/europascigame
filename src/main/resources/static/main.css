@@ -8,20 +8,54 @@ body {
 
 #main-content {
     max-width: 1000px;
-    padding-letf: 20px;
-    padding-right: 20px;
+    min-width: 500px;
     background-color: #fff;
-    border: 1px solid #e5e5e5;
+    border: 1px solid grey;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
 
 .scroller {
-  height: 200px;
+  height:220px;
+  width:460px;
   overflow-y: scroll;
   scrollbar-color: orange grey;
   display: flex;
   flex-direction: column-reverse;
-  border: 1px solid green;
+  border: 1px solid grey;
+}
+
+
+.match {
+  height:160px;
+  width:480px;
+  text-align:center
+}
+
+
+.match-images {
+  height:150px;
+  width:150px;
+  border: 1px solid grey;
+}
+
+.bloc {
+	
+	background-color: #fff;
+ 	border: 1px solid white;
+ 	border-radius: 5px;
+}
+
+.info {
+	background-color: #f5f5f5;
+ 	border: 0px solid white;
+ 	border-radius: 5px;
+ 	
+ 	font-style: italic;
+}
+
+.info:hover {
+  background-color: #ccffdd;
+  color:blue;
 }

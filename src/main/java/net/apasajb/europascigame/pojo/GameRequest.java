@@ -11,12 +11,12 @@ public class GameRequest {
 	private String playerMessage;
 	
 	
-	public GameRequest() { // constructeur
+	public GameRequest() {
 		super();
 	}
 	
 	
-	public GameRequest(String playerMessage) { // constructeur
+	public GameRequest(String playerMessage) {
 		super();
 		this.playerMessage = playerMessage;
 	}

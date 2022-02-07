@@ -30,33 +30,33 @@ public class GameController {
 	@SendTo("/topic/games")
 	public GameResponse processPlayerMessage(GameRequest gameRequest) throws Exception {
 		
-		Thread.sleep(1000); // 1 second of simulated delay
 		String playerMessage = HtmlUtils.htmlEscape(gameRequest.getPlayerMessage());
 		String responseMessage = null;
+		String gameSignature = gameService.getGameSignature();
 		
-		final String gameSignature = "#x0j=R7h2@W1lFb4Sp9C+i1T*3mK6d4V$8z_N5g3Q%#";
-		
-		if (playerMessage.contains("---played" + gameSignature + "---")) {
+		if (playerMessage.contains("---played" + gameSignature + "---")){
 			
+			String allPlayersWithPoints;
 			int actionNumber = gameService.getActionNumber();
+			int currentMatchRound = playersPersistence.getCurrentMatchRound();			// ex. 1
+			String roundForDisplay = playersPersistence.getRoundForDisplay();			// ex. "01"
 			
 			try {
-				
-				if(actionNumber == 0) {
-				
+				if (actionNumber == 0) {
+					
 					gameService.setGameAction01(playerMessage);
 					gameService.setGamePlayer01();
 					gameService.setActionNumber(1);
 					gameService.setPlayerLanguage01();
-					
-					gameService.respondMessagePlayer01();
-					
-					responseMessage = gameService.respondMessagePlayer01();
-					
+					allPlayersWithPoints = playersPersistence.getPlayersResultsString();
+					responseMessage = gameService.respondMessagePlayer01(roundForDisplay) +		//[0] message
+							"***" + currentMatchRound +											//[1] round
+							"***" + allPlayersWithPoints +										//[2] stats
+							"***" + playersPersistence.getChampion();							//[3] champion
+				
 				} else if (actionNumber == 1) {
 					
 					String winner;
-					String allPlayersWithPoints;
 					String persistenceError;
 					
 					gameService.setGameAction02(playerMessage);
@@ -65,14 +65,14 @@ public class GameController {
 					gameService.setGameChoices();
 					gameService.setPlayerLanguage02();
 					gameService.updateGameLanguage();
-					gameService.findTheWinner();
+					gameService.findTheWinner(roundForDisplay);				// Cette action alimente la variable gameResult
 					
 					winner = gameService.getWinner();
-					playersPersistence.setPersistenceError(""); // On supprime l'erreur precedente
+					playersPersistence.setPersistenceError("");				// On supprime l'erreur precedente
 					
 					if (winner.equalsIgnoreCase("none") == false &&
-							winner.equalsIgnoreCase("aucun") == false &&
-							winner.equalsIgnoreCase("nikt") == false) {
+						winner.equalsIgnoreCase("aucun") == false &&
+						winner.equalsIgnoreCase("nikt") == false) {
 						
 						playersPersistence.checkUpdatePlayerInDatabase(winner);
 					}
@@ -80,23 +80,24 @@ public class GameController {
 					allPlayersWithPoints = playersPersistence.getPlayersWithPoints();
 					persistenceError = playersPersistence.getPersistenceError();
 					
-					responseMessage = gameService.getGameResult() + 
-							"*****" + allPlayersWithPoints +
-							"*****" + persistenceError +
-							"*****" + gameSignature;
+					responseMessage = gameService.getGameResult() +						//[0] message
+							"***" + currentMatchRound +									//[1] round
+							"***" + allPlayersWithPoints +								//[2] stats
+							"***" + playersPersistence.getChampion() +					//[3] champion
+							"***" + persistenceError +									//[4] errors
+							"***" + gameSignature;										//[5] signature
 				}
 				
 			} catch (Exception ex) {
-				
 				responseMessage = "#--- ERROR: " + ex.getMessage();
 			}
 			
 		} else {
-			
 			responseMessage = playerMessage;
 		}
 		
 		GameResponse gameResponse = new GameResponse(HtmlUtils.htmlUnescape(responseMessage));
+		Thread.sleep(1000); // 1 second of simulated delay
 		
 		return gameResponse;
 	}

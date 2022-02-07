@@ -22,7 +22,6 @@ public class Player implements Serializable {
 	
 	private static final long serialVersionUID = 966413440546825670L;
 	
-	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +34,7 @@ public class Player implements Serializable {
 	private int col03Points;
 	
 	
-	public Player() {	//Constructeur par defaut
+	public Player() {
 		super();
 	}
 	
@@ -52,28 +51,28 @@ public class Player implements Serializable {
 	public int getCol01Id() {
 		return col01Id;
 	}
-
-
+	
+	
 	public void setCol01Id(int col01Id) {
 		this.col01Id = col01Id;
 	}
-
-
+	
+	
 	public String getCol02Username() {
 		return col02Username;
 	}
-
-
+	
+	
 	public void setCol02Username(String col02Username) {
 		this.col02Username = col02Username;
 	}
-
-
+	
+	
 	public int getCol03Points() {
 		return col03Points;
 	}
-
-
+	
+	
 	public void setCol03Points(int col03Points) {
 		this.col03Points = col03Points;
 	}

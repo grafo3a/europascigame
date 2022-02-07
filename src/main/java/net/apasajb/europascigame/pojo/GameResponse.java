@@ -11,12 +11,12 @@ public class GameResponse {
 	private String serverMessage;
 	
 	
-	public GameResponse() {	// constructeur
+	public GameResponse() {
 		super();
 	}
 	
 	
-	public GameResponse(String serverMessage) {	// constructeur
+	public GameResponse(String serverMessage) {
 		super();
 		this.serverMessage = serverMessage;
 	}

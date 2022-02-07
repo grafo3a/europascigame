@@ -1,8 +1,8 @@
 package net.apasajb.europascigame.services;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+
 
 class GameServiceTests {
 	
@@ -19,13 +19,13 @@ class GameServiceTests {
 		
 		testGameService.setGameChoice01("Rock");
 		testGameService.setGameChoice02("Paper");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player02, testGameService.getWinner());
 		
 		testGameService.setGameChoice01("Rock");
 		testGameService.setGameChoice02("Scissors");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player01, testGameService.getWinner());
 	}
@@ -40,16 +40,17 @@ class GameServiceTests {
 		
 		testGameService.setGameChoice01("Paper");
 		testGameService.setGameChoice02("Scissors");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player02, testGameService.getWinner());
 		
 		testGameService.setGameChoice01("Paper");
 		testGameService.setGameChoice02("Rock");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player01, testGameService.getWinner());
 	}
+	
 	
 	@Test
 	void findTheWinnerScissorsEtc() {
@@ -60,13 +61,13 @@ class GameServiceTests {
 		
 		testGameService.setGameChoice01("Scissors");
 		testGameService.setGameChoice02("Rock");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player02, testGameService.getWinner());
 		
 		testGameService.setGameChoice01("Scissors");
 		testGameService.setGameChoice02("Paper");
-		testGameService.findTheWinner();
+		testGameService.findTheWinner("01");
 		
 		assertEquals(player01, testGameService.getWinner());
 	}

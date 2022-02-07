@@ -9,5 +9,4 @@ public class EuropascigameApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EuropascigameApplication.class, args);
 	}
-
 }

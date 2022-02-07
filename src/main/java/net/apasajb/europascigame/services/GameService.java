@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Offers methods wich process game choices of players and determine the winner of a game.
+ * Offers methods wich process game choices of players and determine the winner of a round.
  * @author ApasaJB
  */
 
@@ -22,17 +22,17 @@ public class GameService {
 	private String gamePlayer02;
 	private String gameResult;
 	private String winner = "None";
-	private String winningChoice;
-	private String pointsLabel;
+	private String winnerChoice;
+	private String newMatchString;
 	private String playerLanguage01 = "en";
 	private String playerLanguage02 = "en";
+	private final String gameSignature = "#x0j=R7h2@W1lFb4Sp9C+i1T*3mK6d4V$8z_N5g3Q%#";
 	private int actionNumber;
 	Locale locale = new Locale("en");
 	
+	// On cree un paquet de ressources / we create a resources bundle
 	
-	// Creation d'un paquet de ressources / Creating a resources bundle
-	
-	String baseName = "g11n/gameservice";
+	String baseName = "g11n/gameservice";							
 	ResourceBundle paquet = ResourceBundle.getBundle(baseName, locale);
 	
 	
@@ -54,9 +54,7 @@ public class GameService {
 	
 	public void updateGameLanguage() {
 		
-		if (playerLanguage01.equals(playerLanguage02)) {
-			
-			// Changement de langue si les 2 joueurs ont la meme langue
+		if (playerLanguage01.equals(playerLanguage02)) {						// Changement de langue si 2 joueurs ont la meme langue
 			
 			locale = new Locale.Builder()
 					.setLanguage(playerLanguage02)
@@ -71,17 +69,18 @@ public class GameService {
 			paquet = ResourceBundle.getBundle(baseName, locale);
 		}
 		
-		playerLanguage01 = "en";
+		playerLanguage01 = "en";												//On reinitialise les variables
 		playerLanguage02 = "en";
 	}
 	
 	
-	public String respondMessagePlayer01() {
+	public String respondMessagePlayer01(String roundForDisplay) {
 		
-		String m01_NEW_GAME_START01 = paquet.getString("m01_A_NEW_GAME_STARTS");
+		String m01_ROUND = paquet.getString("m01_ROUND");
 		String m02_PLAYED = paquet.getString("m02_PLAYED");
 		
-		String responseMessage01 = m01_NEW_GAME_START01 + this.getGamePlayer01() + " " + m02_PLAYED;
+		String responseMessage01 = "[" + m01_ROUND + " " + roundForDisplay + "] " + this.getGamePlayer01() + " " + m02_PLAYED;
+		newMatchString = paquet.getString("m09_NEW_MATCH");
 		
 		return responseMessage01;
 	}
@@ -114,78 +113,77 @@ public class GameService {
 	}
 	
 	
-	public void findTheWinner() {
+	public void findTheWinner(String roundForDisplay) {
 		
-		boolean gameIsValid = true;
+		boolean isGameValid = true;
 		winner = "None";
-		winningChoice = "";
+		winnerChoice = "";
 		
-		// Implementation of Single Player Mode
-		
-		if (gamePlayer01.equals(gamePlayer02)) {
-			
+		if (gamePlayer01.equals(gamePlayer02)) {								//Implementation de Single-Player-Mode
 			if (gameChoice01.equals(gameChoice02)) {
 				
-				gamePlayer02 = "Computer"; //Computer becomes gameplayer02
+				gamePlayer02 = "Robot";											//Robot devient gameplayer02
 				gameChoice02 = this.getRandomGameChoice();
 				
 			} else {
-				gameResult = paquet.getString("m03_FAULT") + " " + paquet.getString("m03_ADVICE");
+				gameResult = paquet.getString("m03_FAULT") + " " + paquet.getString("m04_ADVICE");
 				
 				winner = "None";
-				gameIsValid = false;
+				isGameValid = false;
 			}
 		}
 		
-		if (gameIsValid) {
+		if (isGameValid) {
 			
-			String m04_WITH = paquet.getString("m04_WITH");
-			String m05_END_OF_GAME = paquet.getString("m05_END_OF_GAME");
-			String m06_THE_WINNER_IS = paquet.getString("m06_THE_WINNER_IS");
+			String m01_ROUND = paquet.getString("m01_ROUND");
+			String m06_WINNER = paquet.getString("m06_WINNER");
 			String m07_NONE = paquet.getString("m07_NONE");
 			String m08_DRAW = paquet.getString("m08_DRAW");
-			String m09_POINTS = paquet.getString("m09_POINTS");
-			
 			
 			if (gameChoice01.equals("Rock") && gameChoice02.equals("Paper")){
+				
 				winner = gamePlayer02;
-				winningChoice = " [" + m04_WITH + " " + gameChoice02 + "]";
+				winnerChoice = gameChoice02;
 				
 			} else if (gameChoice01.equals("Rock") && gameChoice02.equals("Scissors")) {
+				
 				winner = gamePlayer01;
-				winningChoice = " [" + m04_WITH + " " + gameChoice01 + "]";
+				winnerChoice = gameChoice01;
 				
 			} else if (gameChoice01.equals("Paper") && gameChoice02.equals("Scissors")) {
+				
 				winner = gamePlayer02;
-				winningChoice = " [" + m04_WITH + " " + gameChoice02 + "]";
+				winnerChoice = gameChoice02;
 				
 			} else if (gameChoice01.equals("Paper") && gameChoice02.equals("Rock")) {
+				
 				winner = gamePlayer01;
-				winningChoice = " [" + m04_WITH + " " + gameChoice01 + "]";
+				winnerChoice = gameChoice01;
 				
 			} else if (gameChoice01.equals("Scissors") && gameChoice02.equals("Rock")) {
+				
 				winner = gamePlayer02;
-				winningChoice = " [" + m04_WITH + " " + gameChoice02 + "]";
+				winnerChoice = gameChoice02;
 				
 			} else if (gameChoice01.equals("Scissors") && gameChoice02.equals("Paper")) {
+				
 				winner = gamePlayer01;
-				winningChoice = " [" + m04_WITH + " " + gameChoice01 + "]";
+				winnerChoice = gameChoice01;
 				
 			} else if (gameChoice01.equals(gameChoice02)) {
+				
 				winner = m07_NONE;
-				winningChoice = " (" + m08_DRAW + ")";
+				winnerChoice = m08_DRAW;
 				
 			} else {
+				
 				winner = m07_NONE;
-				winningChoice = "";
+				winnerChoice = "";
 			}
 			
-			this.setPointsLabel(m09_POINTS);
-			
-			gameResult = "#--- " + m05_END_OF_GAME + ". --- " + gamePlayer01 + 
-					" [" + gameChoice01 + "] ---vs--- " + gamePlayer02 +
-					" [" + gameChoice02 + "] --- " + m06_THE_WINNER_IS +
-					": --- " + winner.toUpperCase() + winningChoice;
+			gameResult = "[" + m01_ROUND + " " + roundForDisplay + "]##" +
+					gamePlayer01 + "##" + gameChoice01 + "##vs##" + gamePlayer02 + "##" + gameChoice02 + "##" +
+					m06_WINNER + "##" + winner + "##" + winnerChoice;
 		}
 	}
 	
@@ -193,11 +191,11 @@ public class GameService {
 	public String getRandomGameChoice() {
 		
 		String randomGameChoice = null;
-		
 		Random randomObject = new Random(); 
-		int randomNumber = randomObject.nextInt(3); //-- We generate a random number from 0 to 2
+		int randomNumber = randomObject.nextInt(3);								//We generate a random number from 0 to 2
 		
-		switch (randomNumber) { //We assign a choice to each possible random number
+		switch (randomNumber) {													//We assign a choice to each possible random number
+		
 		case 0:
 			randomGameChoice = "Rock";
 			break;
@@ -330,15 +328,14 @@ public class GameService {
 	}
 	
 	
-	public String getPointsLabel() {
-		return pointsLabel;
+	public String getNewMatchString() {
+		return newMatchString;
 	}
 	
 	
-	public void setPointsLabel(String pointsLabel) {
-		this.pointsLabel = pointsLabel;
+	public String getGameSignature() {
+		return gameSignature;
 	}
-	
 	
 	public Locale getLocale() {
 		return locale;

@@ -14,7 +14,7 @@
 	<artifactId>europascigame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>europascigame</name>
-	<description>Rock-Paper-Scissors game by ApasaJB</description>
+	<description>Europascigame01 by ApasaJB</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
