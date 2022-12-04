@@ -8,5 +8,3 @@ Any player can join a match at any round.
 A player can play against a human or a robot opponent.
 Up to 10 players can play in a same match.
 A player needs 12 points to become champion.
-
-The game is available online at https://europascigame.herokuapp.com/.
