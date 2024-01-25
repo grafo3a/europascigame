@@ -13,13 +13,13 @@ A player needs 12 points to become champion.
 Technical aspects
 -----------------
 The main technologies used in the project are:
-Java 8,
-Spring Boot 2.5,
-Spring Data JPA,
-WebSockets,
-H2 Database (in memory),
-HTML,
-CSS & BootStrap,
-JavaScript & JQuery,
-JUnit 5,
-Maven.
+- Java 8,
+- Spring Boot 2.5,
+- Spring Data JPA,
+- WebSockets,
+- H2 Database (in memory),
+- HTML,
+- CSS & BootStrap,
+- JavaScript & JQuery,
+- JUnit 5,
+- Maven.
