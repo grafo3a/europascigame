@@ -23,3 +23,7 @@ The main technologies used in the project are:
 - JavaScript & JQuery,
 - JUnit 5,
 - Maven.
+
+## Screenshots
+
+![europascigame_screenshot_01.PNG](/src/main/resources/static/europascigame_screenshot_01.PNG?raw=true)
