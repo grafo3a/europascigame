@@ -12,6 +12,8 @@ A player needs 12 points to become champion.
 
 ## Technical aspects
 
+### Tech stack
+
 The main technologies used in the project are:
 - Java 8,
 - Spring Boot 2.5,
@@ -23,6 +25,18 @@ The main technologies used in the project are:
 - JavaScript & JQuery,
 - JUnit 5,
 - Maven.
+
+### How to build the app
+
+To build & run the app with Maven, use the following commands:
+
+On Windows:
+cd europascigame
+mvnw spring-boot:run
+
+On Linux/Unix:
+cd europascigame
+./mvnw spring-boot:run
 
 ## Screenshots
 
