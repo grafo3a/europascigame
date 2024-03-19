@@ -6,6 +6,7 @@ body {
     margin-bottom: 20px;
 }
 
+
 #main-content {
     max-width: 1000px;
     min-width: 500px;
@@ -15,6 +16,7 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
 
 .scroller {
   height:220px;
@@ -34,11 +36,23 @@ body {
 }
 
 
-.match-images {
+.match-images-01 {
   height:150px;
   width:150px;
   border: 1px solid grey;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
+
+
+.match-images-02 {
+  height:150px;
+  width:150px;
+  border: 1px solid grey;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
 
 .bloc {
 	
@@ -47,6 +61,7 @@ body {
  	border-radius: 5px;
 }
 
+
 .info {
 	background-color: #f5f5f5;
  	border: 0px solid white;
@@ -54,6 +69,7 @@ body {
  	
  	font-style: italic;
 }
+
 
 .info:hover {
   background-color: #ccffdd;
