@@ -76,7 +76,7 @@ public class PlayersPersistence {
 				
 				String username = playerArray[0];
 				String points = playerArray[1];
-				playersResultsString = playersResultsString + "---" + username + "(" + points + ")";
+				playersResultsString = playersResultsString + "__" + username + "(" + points + ")";
 				
 				if (Integer.parseInt(points) >= maxPoints) {					// si on a 12 points, on devient champion.
 					
@@ -95,7 +95,7 @@ public class PlayersPersistence {
 	}
 	
 	
-	//=================== GETTERS & SETTERS =================//
+	//=========================== GETTERS & SETTERS //
 	
 	public String getPersistenceError() {
 		return persistenceError;
@@ -136,5 +136,5 @@ public class PlayersPersistence {
 		this.currentMatchRound = currentMatchRound;
 	}
 	
-	//==========================================================//
+	//================================================//
 }

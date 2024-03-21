@@ -161,8 +161,8 @@ function showGame(serverMessage) {
 		$("#gameImage02").attr("src", "images/temporary.png");
 		
 		//On efface les noms des joueurs
-		$("#playerName01").html("-----");
-		$("#playerName02").html("-----");
+		$("#playerName01").html("____");
+		$("#playerName02").html("____");
 	}
 	
 	let winnerStringPL = "Zwycięzca";
@@ -174,7 +174,9 @@ function showGame(serverMessage) {
 		mainMessage.includes(winnerStringFR)) &&
 		message.includes(gameSignature)) {
 		
-		//Exemple mainMessage: "[Round 04] End.##winner##WINNERNAME##Rock##Player01##Rock##Player02##Paper"
+		/*
+		Exemple mainMessage: "[Round 04] End.##winner##WINNERNAME##Rock##Player01##Rock##Player02##Paper"
+		*/
 		
 		let messageArray01 = mainMessage.split('##');
 		let roundString = messageArray01[0];

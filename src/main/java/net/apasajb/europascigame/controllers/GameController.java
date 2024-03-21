@@ -89,7 +89,7 @@ public class GameController {
 				}
 				
 			} catch (Exception ex) {
-				responseMessage = "#--- ERROR: " + ex.getMessage();
+				responseMessage = "#-- ERROR: " + ex.getMessage();
 			}
 			
 		} else {
