@@ -30,14 +30,14 @@ The main technologies used in the project are:
 
 To build & run the app with Maven, use commands as explained below.
 
-#### On Windows:
-Open a command line interface (cmd);
-Go to the root directory of the app: "cd europascigame";
+#### On Windows
+Open a command line interface (cmd);  
+Go to the root directory of the app: "cd europascigame";  
 Type the following command: "mvnw spring-boot:run".
 
-#### On Linux/Unix:
-Open a terminal;
-Go to the root directory of the app: "cd europascigame";
+#### On Linux/Unix
+Open a terminal;  
+Go to the root directory of the app: "cd europascigame";  
 Type the following command: "./mvnw spring-boot:run".
 
 ## Screenshots
