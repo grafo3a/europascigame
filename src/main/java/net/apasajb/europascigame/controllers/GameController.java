@@ -5,6 +5,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
+
 import net.apasajb.europascigame.dao.PlayersPersistence;
 import net.apasajb.europascigame.pojo.GameRequest;
 import net.apasajb.europascigame.pojo.GameResponse;
@@ -15,7 +16,6 @@ import net.apasajb.europascigame.services.GameService;
  * Receives WebSocket messages, processes them and sends a response back to players (JavaScript).
  * @author ApasaJB
  */
-
 @Controller
 public class GameController {
 	
@@ -24,7 +24,6 @@ public class GameController {
 	
 	@Autowired
 	PlayersPersistence playersPersistence;
-	
 	
 	@MessageMapping("/hello")
 	@SendTo("/topic/games")
@@ -35,27 +34,37 @@ public class GameController {
 		String gameSignature = gameService.getGameSignature();
 		
 		if (playerMessage.contains("---played" + gameSignature + "---")){
-			
 			String allPlayersWithPoints;
 			int actionNumber = gameService.getActionNumber();
-			int currentMatchRound = playersPersistence.getCurrentMatchRound();			// ex. 1
-			String roundForDisplay = playersPersistence.getRoundForDisplay();			// ex. "01"
+			
+			/*
+			currentMatchRound example: 1
+			roundForDisplay example: "01"
+			*/
+			int currentMatchRound = playersPersistence.getCurrentMatchRound();
+			String roundForDisplay = playersPersistence.getRoundForDisplay();
 			
 			try {
 				if (actionNumber == 0) {
-					
 					gameService.setGameAction01(playerMessage);
 					gameService.setGamePlayer01();
 					gameService.setActionNumber(1);
 					gameService.setPlayerLanguage01();
 					allPlayersWithPoints = playersPersistence.getPlayersResultsString();
-					responseMessage = gameService.respondMessagePlayer01(roundForDisplay) +		//[0] message
-							"***" + currentMatchRound +											//[1] round
-							"***" + allPlayersWithPoints +										//[2] stats
-							"***" + playersPersistence.getChampion();							//[3] champion
-				
-				} else if (actionNumber == 1) {
 					
+					/*
+					responseMessage is used in the front-end page as follows:
+					[0] respondMessagePlayer01(*) = message
+					[1] currentMatchRound = round
+					[2] allPlayersWithPoints = stats
+					[3] getChampion() = champion
+					*/
+					responseMessage = gameService.respondMessagePlayer01(roundForDisplay) +
+							"***" + currentMatchRound +
+							"***" + allPlayersWithPoints +
+							"***" + playersPersistence.getChampion();
+					
+				} else if (actionNumber == 1) {
 					String winner;
 					String persistenceError;
 					
@@ -65,10 +74,13 @@ public class GameController {
 					gameService.setGameChoices();
 					gameService.setPlayerLanguage02();
 					gameService.updateGameLanguage();
-					gameService.findTheWinner(roundForDisplay);				// Cette action alimente la variable gameResult
 					
+					// On alimente la variable gameResult
+					gameService.findTheWinner(roundForDisplay);
 					winner = gameService.getWinner();
-					playersPersistence.setPersistenceError("");				// On supprime l'erreur precedente
+					
+					// On supprime l'erreur precedente
+					playersPersistence.setPersistenceError("");
 					
 					if (winner.equalsIgnoreCase("none") == false &&
 						winner.equalsIgnoreCase("aucun") == false &&
@@ -80,12 +92,21 @@ public class GameController {
 					allPlayersWithPoints = playersPersistence.getPlayersWithPoints();
 					persistenceError = playersPersistence.getPersistenceError();
 					
-					responseMessage = gameService.getGameResult() +						//[0] message
-							"***" + currentMatchRound +									//[1] round
-							"***" + allPlayersWithPoints +								//[2] stats
-							"***" + playersPersistence.getChampion() +					//[3] champion
-							"***" + persistenceError +									//[4] errors
-							"***" + gameSignature;										//[5] signature
+					/*
+					responseMessage is used in the front-end page as follows:
+					[0] getGameResult() = message
+					[1] currentMatchRound = round
+					[2] allPlayersWithPoints = stats
+					[3] getChampion() = champion
+					[4] persistenceError = errors
+					[5] gameSignature = signature
+					*/
+					responseMessage = gameService.getGameResult() +
+							"***" + currentMatchRound +
+							"***" + allPlayersWithPoints +
+							"***" + playersPersistence.getChampion() +
+							"***" + persistenceError +
+							"***" + gameSignature;
 				}
 				
 			} catch (Exception ex) {
